@@ -1,0 +1,44 @@
+"Error Log "[Thu Apr 23 07:57:56.550319 2020] [mpm_event:error] [pid 8574:tid 140185091581760] AH00485: scoreboard is full, not at MaxRequestWorkers"
+My Environment
+
+Ubuntu 16.04 X86_64
+Apache 2.4.41
+PHP 5.4.16 
+2 Intel Xeon E5-2620 @ 2.00GHz (8 core, 16 threads in each processor)
+16GB RAM registered memory.
+1 Hard Disk 50GB
+
+Interesting Variables
+"/etc/apache2/mods-available/mpm_worker.conf"
+
+     <IfModule mpm_worker_module>
+	     StartServers		         4
+	     MinSpareThreads		     15
+	     MaxSpareThreads		     25
+	     ThreadLimit	           180
+	     ThreadsPerChild		     150
+     	MaxRequestWorkers	       200
+	    MaxConnectionsPerChild   0
+     </IfModule>
+
+"/etc/apache2/mods-available/mpm_event.conf"
+
+     <IfModule mpm_event_module>
+	     StartServers		          2
+	     MinSpareThreads		      96
+	     MaxSpareThreads		      192
+	     ThreadLimit		          196
+	     ThreadsPerChild		      96
+	     MaxRequestWorkers	      192
+	     MaxConnectionsPerChild   96
+     </IfModule>
+
+"/etc/apache2/mods-available/mpm_prefork.conf"
+
+     <IfModule mpm_prefork_module>
+	     StartServers	           2
+	     MinSpareServers		     5
+     	 MaxSpareServers		     10
+	     MaxRequestWorkers	     10000
+	     MaxConnectionsPerChild  60
+     </IfModule>
